@@ -1,0 +1,234 @@
+
+hiiiiiiiiiiiiiiiiiiiii
+<div id="result"> </div>
+
+
+<br>
+<br>
+<br>
+<br>
+
+
+<form id="form" enctype="multipart/form-data" action="${url}"  method="POST">
+   <input type='file' id='file' name='file'  /> 
+</form>
+
+
+<br>
+<br>
+
+<img id="preview_image" alt="" src="${imageUrl}" width="100px" height="120px"> 
+
+
+<br>
+<br>
+
+
+<input type="button" id="save" value= "Save" >
+<input type="button" id="cancel" value= "Cancel" >
+
+
+
+<div>
+Select Logo
+</div>
+
+<div>
+
+
+
+
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<div>
+Select navigation bar style
+<select class="target">
+<option value="Dark" selected="selected">Dark</option>
+<option value="Light">Light</option>
+</select>
+</div>
+
+<div>
+Preview
+</div>
+  
+ 
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+<br>    
+  
+  
+<hr/>  
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<div >
+Example  LIGHT STYLE
+  </div>
+  
+ <div id="light_style">
+  <div id="PlatformAdminToolbarContainer">
+  <div id="UIToolbarContainer" class="UIContainer UIToolbarContainer  ">
+    <div class="NormalContainerBlock">
+      <div class="LeftContainerBlock">
+        <div class="RightContainerBlock UIComponentBlock">
+          <div class="VIEW-CONTAINER ToolbarContainer VIEW-BLOCK">
+            <div>
+              <div style="margin: 0px auto;" class="UITableColumnContainer">
+                <div style="zoom: 100%;" class="TRContainer ClearFix">
+                  <div class="HomeLinkTDContainer FL">
+                    <div id="HomeLink">
+                      <a class="HomeLink" href="#"> <img
+                        alt="Home"
+                        src="/eXoPlatformResources/skin/platformSkin/UIToolbarContainer/background/HomeIcon.png">
+                      </a>
+                    </div>
+                  </div>
+                  <div class="UIHelpPlatformToolbarPortletTDContainer FL">
+                    <a  href="#"> <img
+                      alt=" Help "
+                      src="/platformNavigation/skin/platformNavigation/UIHelpPlatformToolbarPortlet/background/help.png"
+                      class="UIHelpIcon">
+                    </a>
+                  </div>
+                  <div class="UserInfoPortletTDContainer FL">
+                    <ul id="UIUserPlatformToolBarPortlet"
+                      class="UIUserToolBarPortlet UIHorizontalTabs">
+                      <li class="UITab" id="UserNavigationTabsContainer"><a
+                        href="#" class="TBIcon"> <img alt="avatar"
+                          src="/social-resources/skin/ShareImages/Avatar.gif">
+                          John Smith
+                      </a></li>
+                    </ul>
+                  </div>
+
+                  <div class="SearchPortletTDContainer FL">
+                    <ul class="UISearchPlatformToolBarPortlet UIHorizontalTabs"
+                      id="UISearchPlatformToolbarPortlet">
+                      <li id="ToolBarSearch">
+                          <img alt="Search"
+                          src="/platformNavigation/skin/platformNavigation/UISearchPlatformToolbarPortlet/background/Search.png">
+                      </a></li>
+                    </ul>
+                  </div>
+
+                  <div class="UICreatePlatformToolBarPortletIDTDContainer FL">
+                    <li class="UITab NormalToolbarTab"
+                      id="CreateNavigationTabsContainer"><a class="TBIcon"
+                      href="#"><img alt="Create"
+                        src="/eXoPlatformResources/skin/platformSkin/icons/bullet-toggle-plus-icon.png"></a>
+                    </li>
+                  </div>
+
+                  <div class="UISetupPlatformToolBarPortletIDTDContainer FL">
+                    <li class="UITab NormalToolbarTab"><a
+                      class="SetupMenuItem TBIcon" href="#"><img alt="Setup"
+                        src="/eXoPlatformResources/skin/platformSkin/icons/setup.png">&nbsp;Administration</a>
+                    </li>
+                  </div>
+                  <div class="AdminToolBarPortletTDContainer FL">
+                    <li class="UITab NormalToolbarTab"><a href="#"
+                      class="EditorIcon TBIcon">Edit</a></li>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>  
+
+  <div  >
+Example  DARK STYLE
+  </div>
+  <div id="dark_style">
+  <div id="PlatformAdminToolbarContainer">
+  <div id="UIToolbarContainerDark" class="UIContainer UIToolbarContainerDark ">
+    <div class="NormalContainerBlock">
+      <div class="LeftContainerBlock">
+        <div class="RightContainerBlock UIComponentBlock">
+          <div class="VIEW-CONTAINER ToolbarContainer VIEW-BLOCK">
+            <div>
+              <div style="margin: 0px auto;" class="UITableColumnContainer">
+                <div style="zoom: 100%;" class="TRContainer ClearFix">
+                  <div class="HomeLinkTDContainer FL">
+                    <div id="HomeLink">
+                      <a class="HomeLink" href="#"> <img
+                        alt="Home"
+                        src="/eXoPlatformResources/skin/platformSkin/UIToolbarContainer/background/HomeIcon.png">
+                      </a>
+                    </div>
+                  </div>
+                  <div class="UIHelpPlatformToolbarPortletTDContainer FL">
+                    <a href="#"> <img
+                      alt=" Help "
+                      src="/platformNavigation/skin/platformNavigation/UIHelpPlatformToolbarPortlet/background/help.png"
+                      class="UIHelpIcon">
+                    </a>
+                  </div>
+                  <div class="UserInfoPortletTDContainer FL">
+                    <ul id="UIUserPlatformToolBarPortlet"
+                      class="UIUserToolBarPortlet UIHorizontalTabs">
+                      <li class="UITab" id="UserNavigationTabsContainer"><a
+                        href="#" class="TBIcon"> <img alt="avatar"
+                          src="/social-resources/skin/ShareImages/Avatar.gif">
+                          John Smith
+                      </a></li>
+                    </ul>
+                  </div>
+
+                  <div class="SearchPortletTDContainer FL">
+                    <ul class="UISearchPlatformToolBarPortlet UIHorizontalTabs"
+                      id="UISearchPlatformToolbarPortlet">
+                      <li id="ToolBarSearch">
+                          <img alt="Search"
+                          src="/platformNavigation/skin/platformNavigation/UISearchPlatformToolbarPortlet/background/Search.png">
+                      </a></li>
+                    </ul>
+                  </div>
+
+                  <div class="UICreatePlatformToolBarPortletIDTDContainer FL">
+                    <li class="UITab NormalToolbarTab"
+                      id="CreateNavigationTabsContainer"><a class="TBIcon"
+                      href="#"><img alt="Create"
+                        src="/eXoPlatformResources/skin/platformSkin/icons/bullet-toggle-plus-icon.png"></a>
+                    </li>
+                  </div>
+
+                  <div class="UISetupPlatformToolBarPortletIDTDContainer FL">
+                    <li class="UITab NormalToolbarTab"><a
+                      class="SetupMenuItem TBIcon" href="#"><img alt="Setup"
+                        src="/eXoPlatformResources/skin/platformSkin/icons/setup.png">&nbsp;Administration</a>
+                    </li>
+                  </div>
+                  <div class="AdminToolBarPortletTDContainer FL">
+                    <li class="UITab NormalToolbarTab"><a href="#"
+                      class="EditorIcon TBIcon">Edit</a></li>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+  
+
