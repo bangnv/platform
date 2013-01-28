@@ -17,13 +17,10 @@
 package org.exoplatform.platform.portlet.juzu.branding.models;
 
 import java.util.Calendar;
-
 import javax.jcr.Node;
 import javax.jcr.Session;
-
 import org.apache.commons.fileupload.FileItem;
 import org.exoplatform.container.ExoContainerContext;
-import org.exoplatform.platform.portlet.juzu.branding.BrandingControler;
 import org.exoplatform.services.jcr.RepositoryService;
 import org.exoplatform.services.jcr.ext.common.SessionProvider;
 
@@ -34,7 +31,7 @@ import org.exoplatform.services.jcr.ext.common.SessionProvider;
  * bangnv@exoplatform.com Jan 22, 2013
  */
 public class DataStorageService {
-  // final static String fileName="logo";
+     static String fileName="logo.png";
   RepositoryService repositoryService;
 
   public DataStorageService( ) {
@@ -42,11 +39,8 @@ public class DataStorageService {
   }
 
   public void saveFile(FileItem item) {
-  
-    String filename = item.getName();
     SessionProvider sessionProvider = SessionProvider.createSystemProvider();
     try {
-      // get info
       Session session = sessionProvider.getSession("collaboration",
                                                    repositoryService.getCurrentRepository());
       Node rootNode = session.getRootNode();
@@ -62,13 +56,12 @@ public class DataStorageService {
        Node logosNode=applicationDataNode.getNode("logos");
      
       Node fileNode = null;
-      if (logosNode.hasNode(filename)) {
-        System.out.println("filename " + filename);
-        fileNode = logosNode.getNode(filename);
+      if (logosNode.hasNode(fileName)) {
+        fileNode = logosNode.getNode(fileName);
         fileNode.remove();
         session.save();
       }
-      fileNode = logosNode.addNode(filename, "nt:file");
+      fileNode = logosNode.addNode(fileName, "nt:file");
       Node jcrContent = fileNode.addNode("jcr:content", "nt:resource");
       jcrContent.setProperty("jcr:data", item.getInputStream());
       jcrContent.setProperty("jcr:lastModified", Calendar.getInstance());
@@ -77,7 +70,6 @@ public class DataStorageService {
       logosNode.save();
       session.save();
     } catch (Exception e) {
-      System.out.println("JCR::" + e.getMessage());
     } finally {
       sessionProvider.close();
     }

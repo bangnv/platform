@@ -114,7 +114,7 @@
 								<configuration>
 									<tasks>
 										<copy file="${project.build.directory}\platform-branding.war"
-											todir="C:\plf-navigation\webapps"></copy>
+											todir="/home/bangnv/workspaces/eXoProjects/platform-tomcat-standalone/target/platform-tomcat-standalone-4.0.0.Alpha1-SNAPSHOT/webapps"></copy>
 									</tasks>
 								</configuration>
 							</execution>
