@@ -1,7 +1,9 @@
+<div id='dropbox'>
+    <span class="message">Drop images here to upload. <br /><i>(they will only be visible to you)</i></span>
+</div>
 
-hiiiiiiiiiiiiiiiiiiiii
+
 <div id="result"> </div>
-
 
 <br>
 <br>
@@ -11,6 +13,7 @@ hiiiiiiiiiiiiiiiiiiiii
 
 <form id="form" enctype="multipart/form-data" action="${url}"  method="POST">
    <input type='file' id='file' name='file'  /> 
+   <input type='hidden' id='style' name='style'  /> 
 </form>
 
 
@@ -27,18 +30,7 @@ hiiiiiiiiiiiiiiiiiiiii
 <input type="button" id="save" value= "Save" >
 <input type="button" id="cancel" value= "Cancel" >
 
-
-
-<div>
-Select Logo
-</div>
-
-<div>
-
-
-
-
-</div>
+Value style render = ${style}
 <br/>
 <br/>
 <br/>
@@ -47,31 +39,18 @@ Select Logo
 <br/>
 <div>
 Select navigation bar style
-<select class="target">
-<option value="Dark" selected="selected">Dark</option>
-<option value="Light">Light</option>
+<select id="navigationStyle">
+<option value="dark">Dark</option>
+<option value="light">Light</option>
 </select>
 </div>
 
 <div>
 Preview
 </div>
-  
- 
   <br/>
   <br/>
   <br/>
-  <br/>
-  <br/>
-  <br/>
-<br>    
-  
-  
-<hr/>  
-<br/>
-<br/>
-<br/>
-<br/>
 <br/>
 <br/>
 <div >
@@ -90,9 +69,9 @@ Example  LIGHT STYLE
                 <div style="zoom: 100%;" class="TRContainer ClearFix">
                   <div class="HomeLinkTDContainer FL">
                     <div id="HomeLink">
-                      <a class="HomeLink" href="#"> <img
+                      <a class="HomeLink" href="#"> <img id="preview1"
                         alt="Home"
-                        src="/eXoPlatformResources/skin/platformSkin/UIToolbarContainer/background/HomeIcon.png">
+                        src="${imageUrl}">
                       </a>
                     </div>
                   </div>
@@ -168,9 +147,9 @@ Example  DARK STYLE
                 <div style="zoom: 100%;" class="TRContainer ClearFix">
                   <div class="HomeLinkTDContainer FL">
                     <div id="HomeLink">
-                      <a class="HomeLink" href="#"> <img
+                      <a class="HomeLink" href="#"> <img id="preview2"
                         alt="Home"
-                        src="/eXoPlatformResources/skin/platformSkin/UIToolbarContainer/background/HomeIcon.png">
+                        src="${imageUrl}">
                       </a>
                     </div>
                   </div>

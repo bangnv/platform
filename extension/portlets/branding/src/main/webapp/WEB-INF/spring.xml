@@ -22,4 +22,9 @@
 		class="org.exoplatform.platform.portlet.juzu.branding.models.DataStorageService">
 	</bean>
 
+
+<!-- 	<bean id="settingService" -->
+<!-- 		class="org.exoplatform.platform.portlet.juzu.branding.provider.SettingServiceProvider"> -->
+<!-- 	</bean> -->
+
 </beans>

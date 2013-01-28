@@ -22,7 +22,8 @@
         scripts = {
                 @Script(id = "jquery",src ="js/common/jquery-1.8.3.js", location = juzu.asset.AssetLocation.SERVER),
                 @Script(id="form",src = "js/common/jquery.form.js", depends="jquery", location = juzu.asset.AssetLocation.SERVER),
-                @Script(src = "branding.js", depends="form", location = AssetLocation.CLASSPATH)
+                @Script(id="firedrop",src="js/common/jquery.filedrop.js",depends="jquery",location = juzu.asset.AssetLocation.SERVER),
+                @Script(src = "branding.js", depends={"form","firedrop"}, location = AssetLocation.CLASSPATH)
         }  
 )
 package org.exoplatform.platform.portlet.juzu.branding;

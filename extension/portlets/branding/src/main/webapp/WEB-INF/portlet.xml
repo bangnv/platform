@@ -11,10 +11,10 @@
 		<init-param>
 			<name>juzu.run_mode</name>
 			<value>dev</value>
-			<init-param>
-				<name>juzu.src_path</name>
-				<value>/home/bangnv/workspaces/eXoProjects/platform/extension/portlets/branding/src/main/java</value>
-			</init-param>
+		</init-param>
+		<init-param>
+			<name>juzu.src_path</name>
+			<value>C:\java\eXoProjects\platform\extension\portlets\branding\src\main\java</value>
 		</init-param>
 		<init-param>
 			<name>juzu.inject</name>
