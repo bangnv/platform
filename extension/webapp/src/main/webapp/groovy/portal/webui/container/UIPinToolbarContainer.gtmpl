@@ -16,22 +16,17 @@
  	String style = "";
     if (settingService.get(Context.GLOBAL,
                            Scope.GLOBAL,
-                           "bar_navigation_style")==null) {
-      
-      style = "Dark";
-    }
-    else{
+                           "bar_navigation_style")!=null) {
+  
     style=(String) settingService.get(Context.GLOBAL,
                                       Scope.GLOBAL,
                                       "bar_navigation_style").getValue();
-    }	
      PortalRequestContext pcontext = Util.getPortalRequestContext();
      JavascriptManager jsmanager = pcontext.getJavascriptManager();
 	 RequireJS requireJS = jsmanager.getRequireJS();
      def script= "jQuery('#PlatformAdminToolbarContainer #UIToolbarContainer').removeAttr('class').addClass('UIToolbarContainer"+style+" UIContainer"+"')";
      requireJS.require("SHARED/jquery", "jQuery").addScripts("jQuery(function(){"+script+"});");
-
-
+    }	
 
 		if(uicomponent.hasPermission()) {
 		def uiToolbarContainer = uicomponent.getChildById("UIToolbarContainer");
