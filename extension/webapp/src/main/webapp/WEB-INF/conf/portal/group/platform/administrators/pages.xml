@@ -222,7 +222,7 @@
 				<portlet-ref>Branding</portlet-ref>
 			</portlet>
 			<title>Branding Portlet</title>
-			<access-permissions>Everyone</access-permissions>
+		    <access-permissions>manager:/platform/administrators</access-permissions>
 			<show-info-bar>false</show-info-bar>
 		</portlet-application>
 	</page>   
