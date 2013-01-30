@@ -94,7 +94,7 @@ public class NavigationServiceHandler extends BaseWebSchemaHandler {
                 }
             }
         } catch (Exception e) {
-            logger.error("Get logo : Can not Find node", e);
+         //   logger.error("Get logo : Can not Find node", e);
         }
         if (isavailable == true) {
             try {
