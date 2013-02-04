@@ -1,12 +1,8 @@
 $(function() {
 	var fileUpload;
 	UpdatePreviewLogoAndStyle(true);
-	// clone Toolbar Administrator and add to Preview
 	$("#PlatformAdminToolbarContainer").clone().appendTo($("#StylePreview"));
 	fixSearchInput();
-	scaleToFitPreviewImg($('#PreviewImg'));
-//	runDragandDrop();
-	
 	$("#cancel").on(
 			"click",
 			function() {
@@ -22,32 +18,38 @@ $(function() {
 	});
 
 	$("input#file").on("change", function() {
-		previewLogoBycontent(this.files[0]);
+		previewLogoFromFile(this.files[0]);
 	});
 
-	
-	$('#form').submit(function() {
-		$(this).ajaxSubmit({
-			beforeSubmit : function(data) {
-				if (validate($("input#file"))){
-				$("#ajaxUploading").show();
-				}
-			},
-			target : '#result',
-			success : function(data) {
-				UpdateTopBarNavigation(data);
-				$("#ajaxUploading").hide();
-				$("div#result").text(
-				"Changes in branding settings have been saved");
-			}
-		});
-
-		return false;
-	});
-
-//	$('.target').change(function() {
-//		var valueSelected = ($('.target option:selected').val());
-//	});
+	$('#form')
+			.submit(
+					function() {
+						fd = new FormData($("#form").get(0));
+						if (fileUpload) {
+							fd.append("file", fileUpload);
+						}
+						$
+								.ajax({
+									type : "POST",
+									url : $("#form").attr("action"),
+									data : fd,
+									beforeSend: function(){
+										$("#ajaxUploading").show();
+									},
+									dataType : "json", 
+									contentType : false,
+									processData : false,
+									success : function(data) {
+										UpdateTopBarNavigation(data);
+										$("#ajaxUploading").hide();
+										fileUpload==null;
+										$("div#result")
+												.text(
+														"Changes in branding settings have been saved");
+									}
+								});
+						return false;
+					});
 
 	/* Change CSS by selecting */
 	$("#navigationStyle").change(function() {
@@ -67,68 +69,63 @@ $(function() {
 				"#StylePreview #UIToolbarContainer #SearchNavigationTabsContainer input")
 				.remove();
 	}
-	function previewLogoBycontent(file) {
+	function previewLogoFromFile(file) {
 		var checkValide = validate(file);
 		if (checkValide == false) {
-			// not validated
 			$("div#result").text("the file must be in photo format png ");
 			return;
 		} else {
-			// validated
+			fileUpload = file;
 			var reader = new FileReader();
 			reader.onload = function(e) {
-				previewPhoto(e.target.result);
+				previewLogoFromUrl(e.target.result);
 			};
 			reader.readAsDataURL(file);
 			$("div#result").text("");
 		}
 	}
-	
-		function validate(inputForm){
-			return validate(inputForm.files[0]);
-		}
 
-		function validate(file) {
-		if (file.type=="image/png") {
+	function validate(file) {
+		if (file.type == "image/png") {
 			return true;
 		} else {
-			$("#file").replaceWith($("#file").val("").clone(true));
 			return false;
 		}
 	}
 
 	function scaleToFitPreviewImg(elt) {
 		$(elt).imgscale({
-			parent : '.non-immediate-parent-container',
+			parent : '#PreviewImgDiv',
 			fade : 1000
 		});
 	}
 
-	function previewPhoto(data) {
-		$('#PreviewImg').attr('src', data);
+	function previewLogoFromUrl(logoUrl) {
+		$('#PreviewImg').attr('src', logoUrl);
 		scaleToFitPreviewImg($('#PreviewImg'));
-		$('#StylePreview #HomeLink img').attr('src', data).width(25).height(21);
+		$('#StylePreview #HomeLink img').attr('src', logoUrl).width(25).height(21);
 	}
 
 	function UpdatePreviewLogoAndStyle(firstTime) {
-		$("#navigationStyle").jzAjax({
-			
-			url : "BrandingControler.getResource()",
-			beforeSend: function(){
-//				alert("beforesend");
-				if(!firstTime) {
-					$("#ajaxUploading").show();
-				}
-			},
-			success : function(data) {
-				// update the logo url in preview zone and preview navigation bar
-				previewPhoto(data.logoUrl);
-				// update the navigation style and style selected;
-				changePreviewStyle(data.style);
-				$("#navigationStyle").val(data.style).attr('selected', 'selected');
-				$("#ajaxUploading").hide();
-			}
-		});
+		$("#navigationStyle").jzAjax(
+				{
+					url : "BrandingControler.getResource()",
+					beforeSend : function() {
+						if (!firstTime) {
+							$("#ajaxUploading").show();
+						}
+					},
+					success : function(data) {
+						// update the logo url in preview zone and preview
+						// navigation bar
+						previewLogoFromUrl(data.logoUrl);
+						// update the navigation style and style selected;
+						changePreviewStyle(data.style);
+						$("#navigationStyle").val(data.style).attr('selected',
+								'selected');
+						$("#ajaxUploading").hide();
+					}
+				});
 	}
 	function UpdateTopBarNavigation(data) {
 		$("#PlatformAdminToolbarContainer .HomeLink img:first").attr('src',
@@ -138,64 +135,31 @@ $(function() {
 		$("#PlatformAdminToolbarContainer #UIToolbarContainer:first").addClass(
 				"UIToolbarContainer" + data.style + " UIContainer");
 	}
-	
-	function $id(id) {
-		return document.getElementById(id);
-	}
+
 	function FileDragHover(e) {
 		e.stopPropagation();
 		e.preventDefault();
 		e.target.className = (e.type == "dragover" ? "hover" : "");
 	}
-	
+
 	// file selection
-	function FileSelectHandler(e) {
-		// cancel event and hover styling
-		FileDragHover(e);
+	function FileDropHandle(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		e.target.className ="";
 		var files = e.target.files || e.dataTransfer.files;
-		previewLogoBycontent(files[0]);
-		// fetch FileList object
-		// input = e.target
-		
-		
-		
-//		var files = e.target.files || e.dataTransfer.files;
-//		// process all File objects
-//		for (var i = 0, f; f = files[i]; i++) {
-//			ParseFile(f);
-//		}
+		previewLogoFromFile(files[0]);
 	}
 	
-//	function ParseFile(file) {
-//		Output(
-//			"<p>File information: <strong>" + file.name +
-//			"</strong> type: <strong>" + file.type +
-//			"</strong> size: <strong>" + file.size +
-//			"</strong> bytes</p>"
-//		);
-//	}
-	
-	// call initialization file
 	if (window.File && window.FileList && window.FileReader) {
-		Init();
-	}
-	// initialize
-	function Init() {
-		var filedrag = $id("filedrag");
-//		fileselect.addEventListener("change", FileSelectHandler, false);
-		// is XHR2 available?
+		var filedrag =document.getElementById("PreviewImgDiv");
 		var xhr = new XMLHttpRequest();
 		if (xhr.upload) {
-			// file drop
 			filedrag.addEventListener("dragover", FileDragHover, false);
 			filedrag.addEventListener("dragleave", FileDragHover, false);
-			filedrag.addEventListener("drop", FileSelectHandler, false);
+			filedrag.addEventListener("drop", FileDropHandle, false);
 			filedrag.style.display = "block";
 		}
 	}
-	
-	
 
-
-	
 });

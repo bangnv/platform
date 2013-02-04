@@ -10,20 +10,14 @@
 
 <h3>Select Logo</h3>
 <hr/>
-<div id="originalForm">
+  <input type='file' id='file' name='file'  />
 <form id="form" enctype="multipart/form-data" action="${url}"  method="POST">
-	<label for="fileselect">Files to upload:</label>
-   <input type='file' id='file' name='file'  />
    <input type='hidden' id='style' name='style'  />
 </form>
 
-
-    <div id="filedrag">
-                  <div id="PreviewImgDiv" class="non-immediate-parent-container">
-                  <img id="PreviewImg" alt="" src="${imageUrl}" >
-      			 </div>
-    </div>
-</div>
+  <div id="PreviewImgDiv" >
+ <img id="PreviewImg" alt="" src="${imageUrl}" >
+  </div>
 
 <br>
 
