@@ -96,7 +96,8 @@ public class BrandingController {
    * @throws IOException
    */
   @Resource
-  public Response.Content save(HttpContext httpContext, FileItem file, String style) throws IOException {
+  public Response.Content save(HttpContext httpContext, FileItem file, String style,String browser) throws IOException {
+    System.out.println(" save -----------"+ file.getFieldName() + file.getSize()+ " style --"+style+" "+browser);
     if (file != null && file.getContentType().startsWith("image/")) {
       dataStorageService.saveFile(file);
     }
@@ -120,7 +121,7 @@ public class BrandingController {
   @Route("/")
   public Response index(HttpContext httpContext) {
     Map<String, Object> parameters = new HashMap<String, Object>();
-    parameters.put("url", BrandingController_.save(null));
+//    parameters.put("url", BrandingController_.save(null,null));
     parameters.put("imageUrl", getLogoUrl(httpContext));
     Locale locale = RequestContext.getCurrentInstance().getLocale();
     ResourceBundle rs = ResourceBundle.getBundle("branding/branding", locale);
@@ -221,7 +222,8 @@ public class BrandingController {
     Response.Content<Stream.Char> json = new Response.Content<Stream.Char>(200, Stream.Char.class) {
       @Override
       public String getMimeType() {
-        return "application/json";
+          return "text/html";
+//        return "application/json";
       }
 
       

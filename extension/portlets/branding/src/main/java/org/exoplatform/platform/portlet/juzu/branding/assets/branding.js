@@ -1,11 +1,11 @@
 $(function() {
-	
+
 	/**
-	 * initialize variables and methods when first load page
-	 * first display a preview, hide save, cancel, png div
-	 * then clone toolbar navigation to preview display
+	 * initialize variables and methods when first load page first display a
+	 * preview, hide save, cancel, png div then clone toolbar navigation to
+	 * preview display
 	 */
-	
+
 	var fileUpload;
 	var backupParams;
 	UpdatePreviewLogoAndStyle();
@@ -13,68 +13,30 @@ $(function() {
 	$("#cancelinfo").hide();
 	$("#mustpng").hide();
 	$("#PlatformAdminToolbarContainer").clone().appendTo($("#StylePreview"));
-	
-	//when cancel is clicked, restore the old logo and display cancel messsage
+
+	// when cancel is clicked, restore the old logo and display cancel messsage
 	$("#cancel").on("click", function() {
 		restorePreviewLogoAndStyle();
-//		UpdatePreviewLogoAndStyle();
+		// UpdatePreviewLogoAndStyle();
 		$("#saveinfo").hide();
 		$("#mustpng").hide();
 		$("#cancelinfo").show();
 	});
-	
-	//when save is clicked, restore the new logo and display save messsage	
+
+	// when save is clicked, restore the new logo and display save messsage
 	$("#save").on("click", function() {
 		$("#style").val(($('#navigationStyle option:selected').val()));
-		$('#form').submit();
+		submit();
 		$("#saveinfo").show();
 		$("#cancelinfo").hide();
 		$("#mustpng").hide();
 	});
 
-	//launch preview when a file is insert in input
+	// launch preview when a file is insert in input
 	$("input#file").on("change", function() {
-		previewLogoFromFile(this.files[0]);
-	});
-	
-	/*
-	 * Submit the form, the content file and navigation file will be sent to server, 
-	 * the content file is recovered from the input file or event trigger dropped on the div 
-	 */
-	$('#form').submit(function() {
-		fd = new FormData($("#form").get(0));
-		if (fileUpload) {
-			fd.append("file", fileUpload);
+		if (supportHTML5()) {
+			previewLogoFromFile(this.files[0]);
 		}
-		$.ajax({
-			type : "POST",
-			url : $("#form").attr("action"),
-			data : fd,
-			beforeSend : function() {
-				$("#PreviewImg").hide();
-				$("#StylePreview #PlatformAdminToolbarContainer").hide();
-				$("#ajaxUploading1").show();
-				$("#ajaxUploading2").show();
-			},
-			dataType : "json",
-			contentType : false,
-			processData : false,
-			success : function(data) {
-				// backupParams will be used for cancel the change
-				backupParams.logoUrl=backupParams.logoUrl+ Math.random();
-				backupParams.style=data.style;
-				$("#ajaxUploading1").hide();
-				$("#ajaxUploading2").hide();
-				$("#PreviewImg").show();
-				$("#StylePreview #PlatformAdminToolbarContainer").show();
-				UpdateTopBarNavigation(data);
-				fileUpload == null;
-				$("#saveinfo").show();
-				$("#cancelinfo").hide();
-				$("#mustpng").hide();
-			}
-		});
-		return false;
 	});
 
 	/* Change CSS by selecting */
@@ -83,15 +45,81 @@ $(function() {
 		changePreviewStyle(style);
 	});
 
-	/**
-	 * change preview style by adding new class in UIToolbarContainer which is concatenated a style selected
+	/*
+	 * Submit the form, the content file and navigation file will be sent to
+	 * server, the content file is recovered from the input file or event
+	 * trigger dropped on the div
 	 */
-	function changePreviewStyle(style) {
-		$("#StylePreview #UIToolbarContainer").attr('class', "UIToolbarContainer"+ style +" UIContainer");
-	}
+			function submit() {
+				if (supportHTML5()) {
+					fd = new FormData($("#form").get(0));
+					if (fileUpload) {
+						fd.append("file", fileUpload);
+					}
+					$.ajax({
+						type : "POST",
+						url : $("#form").attr("action"),
+						data : fd,
+						beforeSend : function() {
+							$("#PreviewImg").hide();
+							$("#StylePreview #PlatformAdminToolbarContainer")
+									.hide();
+							$("#ajaxUploading1").show();
+							$("#ajaxUploading2").show();
+						},
+						dataType : "json",
+						contentType : false,
+						processData : false,
+						success : function(data) {
+							// backupParams will be used for cancel the change
+							backupParams.logoUrl = backupParams.logoUrl
+									+ Math.random();
+							backupParams.style = data.style;
+							$("#ajaxUploading1").hide();
+							$("#ajaxUploading2").hide();
+							$("#PreviewImg").show();
+							$("#StylePreview #PlatformAdminToolbarContainer")
+									.show();
+							UpdateTopBarNavigation(data);
+							fileUpload == null;
+							$("#saveinfo").show();
+							$("#cancelinfo").hide();
+							$("#mustpng").hide();
+						}
+					});
+				} else {
+	               $("#browser").val("ie");
+					  $('#form').ajaxForm({
+					     	dataType : "text/html",
+					    	success : function(data) {
+			            		alert(data);
+			            	}
+				        });
+//				        $('#form').on('submit', function(e) {
+//				            e.preventDefault(); // <-- important
+//				            $(this).ajaxSubmit({
+//				            	success : function(data) {
+//				            		alert("zooooooooo");
+////				            		alert(data.style+" "+data.logoUrl);
+//				            	}
+//				            });
+//				        });
+				        $('#form').submit();
+				}
+			}
 	
 	/**
-	 * preview a logo, display a message if not png file, otherwise display this image file
+	 * change preview style by adding new class in UIToolbarContainer which is
+	 * concatenated a style selected
+	 */
+	function changePreviewStyle(style) {
+		$("#StylePreview #UIToolbarContainer").attr('class',
+				"UIToolbarContainer" + style + " UIContainer");
+	}
+
+	/**
+	 * preview a logo, display a message if not png file, otherwise display this
+	 * image file
 	 */
 	function previewLogoFromFile(file) {
 		var checkValide = validate(file);
@@ -111,8 +139,7 @@ $(function() {
 	}
 
 	/**
-	 * validate an png image
-	 * returns true if png, otherwise return false
+	 * validate an png image returns true if png, otherwise return false
 	 */
 	function validate(file) {
 		if (file.type == "image/png") {
@@ -145,14 +172,15 @@ $(function() {
 	 * restore a logo in preview when cancel is clicked
 	 */
 	function restorePreviewLogoAndStyle() {
-						previewLogoFromUrl(backupParams.logoUrl);
-						changePreviewStyle(backupParams.style);
-						$("#navigationStyle").val(backupParams.style).attr('selected',
-								'selected');
+		previewLogoFromUrl(backupParams.logoUrl);
+		changePreviewStyle(backupParams.style);
+		$("#navigationStyle").val(backupParams.style).attr('selected',
+				'selected');
 	}
-	
+
 	/**
-	 * update logo and style in preview toolbar, set the value to the selected markup
+	 * update logo and style in preview toolbar, set the value to the selected
+	 * markup
 	 */
 	function UpdatePreviewLogoAndStyle() {
 		$("#navigationStyle").jzAjax(
@@ -161,7 +189,7 @@ $(function() {
 					beforeSend : function() {
 					},
 					success : function(data) {
-						backupParams=data;
+						backupParams = data;
 						// update the logo url in preview zone and preview
 						// navigation bar
 						previewLogoFromUrl(data.logoUrl);
@@ -172,11 +200,11 @@ $(function() {
 					}
 				});
 	}
-	
+
 	/**
 	 * Update new logo displays in top bar navigation
 	 */
-	
+
 	function UpdateTopBarNavigation(data) {
 		$("#PlatformAdminToolbarContainer .HomeLink img:first").attr('src',
 				data.logoUrl);
@@ -207,9 +235,10 @@ $(function() {
 	}
 
 	/**
-	 * make a XMLHttpRequest when dragndrop a file in PreviewImmDiv, it will send an image to JCR server with this protocol
+	 * make a XMLHttpRequest when dragndrop a file in PreviewImmDiv, it will
+	 * send an image to JCR server with this protocol
 	 */
-	if (window.File && window.FileList && window.FileReader) {
+	if (supportHTML5()) {
 		var filedrag = document.getElementById("PreviewImgDiv");
 		var xhr = new XMLHttpRequest();
 		if (xhr.upload) {
@@ -220,4 +249,10 @@ $(function() {
 		}
 	}
 
+	function supportHTML5() {
+		if (window.File && window.FileList && window.FileReader) {
+			return true;
+		}
+		return false;
+	}
 });

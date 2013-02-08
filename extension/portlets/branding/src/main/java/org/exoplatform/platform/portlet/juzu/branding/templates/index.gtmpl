@@ -6,16 +6,19 @@
 </div>
 <h3>${selectlogo}</h3>
 <hr/>
-  <input type='file' id='file' name='file'  />
+
+  
 <form id="form" enctype="multipart/form-data" action="${url}"  method="POST">
+   <input type='file' id='file' name='file'  />
    <input type='hidden' id='style' name='style'  />
+   <input type='hidden' id='browser' name='browser' />
 </form>
 <br>
   ${noteselectlogo}
 <br>
   <div id="PreviewImgDiv" >
 	<img id="ajaxUploading1" alt="" src="/eXoPlatformResources/skin/platformSkin/icons/ajax-loader.gif"  style="display:none" >
- <img id="PreviewImg" alt="" >
+    <img id="PreviewImg" alt="" >
   </div>
 
 
