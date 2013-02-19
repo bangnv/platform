@@ -6,9 +6,10 @@
 </div>
 <h3>${selectlogo}</h3>
 <hr/>
-  <input type='file' id='file' name='file'  />
+ 
 <form id="form" enctype="multipart/form-data" action="${url}"  method="POST">
-   <input type='hidden' id='style' name='style'  />
+ <input type='hidden' id='browser' name='browser' />
+ <input type='file' id='file' name='file'  />
 </form>
 <br>
   ${noteselectlogo}
