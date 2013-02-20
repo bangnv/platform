@@ -67,23 +67,6 @@ public class BrandingController {
   BrandingDataStorageService dataStorageService;
 
   /**
-   * method getStyleValue() responses a content if null returns Dark (default)
-   * otherwise return the style selected
-   * 
-   * @return Response.Content
-   */
-  @Ajax
-  @Resource
-  public Response.Content getStyleValue() {
-    String style = "Dark";
-    if (settingService.get(Context.GLOBAL, Scope.GLOBAL, BAR_NAVIGATION_STYLE_KEY) != null) {
-      style = (String) settingService.get(Context.GLOBAL, Scope.GLOBAL, BAR_NAVIGATION_STYLE_KEY)
-                                     .getValue();
-    }
-    return Response.ok(style);
-  }
-
-  /**
    * method save() records an image in BrandingDataStorageService
    * 
    * @param httpContext
@@ -94,15 +77,23 @@ public class BrandingController {
    */
   @Resource
   public Response.Content uploadFile(HttpContext httpContext, FileItem file, String browser) throws IOException {
-    if (file != null && file.getContentType().startsWith("image/")) {
-      dataStorageService.saveLogoPreview(file);
-    }
+    System.out.println(file.getName() + "---" + file.getContentType() + "-------"
+        + file.getFieldName() + "---" + file.getSize());
+
     if (browser != null && browser.equals("html5")) {
+      if (file != null && file.getContentType().contains("png")) {
+        dataStorageService.saveLogoPreview(file);
+      }
       Map<String, String> result = new HashMap<String, String>();
       result.put("logoUrl", getLogoUrl(httpContext, false));
       return createJSON(result);
     } else {
-      return createText(getLogoUrl(httpContext, false));
+      if (file != null && file.getContentType().contains("png")) {
+        dataStorageService.saveLogoPreview(file);
+        return createText(getLogoUrl(httpContext, false));
+      } else {
+        return createText("false"); 
+      }
     }
   }
 
@@ -117,7 +108,9 @@ public class BrandingController {
   @Route("/")
   public Response index(HttpContext httpContext) {
     Map<String, Object> parameters = new HashMap<String, Object>();
-    parameters.put("url", BrandingController_.uploadFile(null));
+    parameters.put("urlUploadFile", BrandingController_.uploadFile(null));
+    parameters.put("urlResource", BrandingController_.getResource());
+    parameters.put("urlSave", BrandingController_.save(null, null));
     parameters.put("imageUrl", getLogoUrl(httpContext, true));
     Locale locale = RequestContext.getCurrentInstance().getLocale();
     ResourceBundle rs = ResourceBundle.getBundle("branding/branding", locale);
@@ -164,7 +157,7 @@ public class BrandingController {
 
   @Ajax
   @Resource
-  public Response.Content save( String style, String isChangeLogo,HttpContext httpContext) {
+  public Response.Content save(String style, String isChangeLogo, HttpContext httpContext) {
     if (isChangeLogo != null && Boolean.valueOf(isChangeLogo)) {
       dataStorageService.saveLogo();
     }
@@ -214,10 +207,8 @@ public class BrandingController {
   @Resource
   public Response.Content<Stream.Char> getResource(HttpContext httpContext) {
     Map<String, String> result = new HashMap<String, String>();
-    String style = "";
-    if (settingService.get(Context.GLOBAL, Scope.GLOBAL, BAR_NAVIGATION_STYLE_KEY) == null) {
-      style = "Dark";
-    } else {
+    String style = "Dark";
+    if (settingService.get(Context.GLOBAL, Scope.GLOBAL, BAR_NAVIGATION_STYLE_KEY) != null) {
       style = (String) settingService.get(Context.GLOBAL, Scope.GLOBAL, BAR_NAVIGATION_STYLE_KEY)
                                      .getValue();
     }

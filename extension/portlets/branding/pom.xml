@@ -10,6 +10,10 @@
   <packaging>jar</packaging>
   <name>eXo Platform - Branding Portlet</name>
   <dependencies>
+   <dependency>
+      <groupId>org.exoplatform.commons</groupId>
+      <artifactId>commons-juzu</artifactId>
+    </dependency>
     <dependency>
       <groupId>commons-fileupload</groupId>
       <artifactId>commons-fileupload</artifactId>
@@ -49,18 +53,6 @@
         <exclusion>
           <artifactId>weld-core</artifactId>
           <groupId>org.jboss.weld</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-core</artifactId>
-          <groupId>org.springframework</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-beans</artifactId>
-          <groupId>org.springframework</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-web</artifactId>
-          <groupId>org.springframework</groupId>
         </exclusion>
         <exclusion>
           <artifactId>slf4j-simple</artifactId>

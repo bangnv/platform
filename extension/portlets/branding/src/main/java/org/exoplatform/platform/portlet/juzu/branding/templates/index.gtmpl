@@ -6,11 +6,16 @@
 </div>
 <h3>${selectlogo}</h3>
 <hr/>
+
+
  
-<form id="form" enctype="multipart/form-data" action="${url}"  method="POST">
+<form id="form" enctype="multipart/form-data" action="${urlUploadFile}"  method="POST">
  <input type='hidden' id='browser' name='browser' />
  <input type='file' id='file' name='file'  />
 </form>
+
+<input type="hidden" id="urlResource" value="${urlResource}"/>
+<input type="hidden" id="urlSave" value="${urlSave}"/>
 <br>
   ${noteselectlogo}
 <br>

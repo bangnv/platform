@@ -171,7 +171,9 @@ $(function() {
 		e.target.className = "";
 		var files = e.target.files || e.dataTransfer.files;
 		if (validate(files[0]) == false) {
-			showMessageError();
+			$("#saveinfo").hide();
+			$("#cancelinfo").hide();
+			$("#mustpng").show();
 			return;
 		} else {
 			fileUpload = files[0];
@@ -234,13 +236,7 @@ $(function() {
 			$('#form').ajaxForm({
 				dataType : "text/html",
 				success : function(data) {
-					if (data == "false") {
-						showMessageError();
-						$("input#file").replaceWith($("input#file").val("").clone(true));
-					} else {
-						previewLogoFromUrl(data);
-						isChangeLogo = true;
-					}
+					// alert(data);
 				}
 			});
 			$('#form').submit();
@@ -269,12 +265,6 @@ $(function() {
 		$("#saveinfo").hide();
 		$("#cancelinfo").hide();
 		$("#mustpng").hide();
-	}
-	
-	function showMessageError(){
-		$("#saveinfo").hide();
-		$("#cancelinfo").hide();
-		$("#mustpng").show();
 	}
 
 });
